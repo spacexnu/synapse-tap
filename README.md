@@ -131,23 +131,23 @@ This will:
 Output example:
 ```
 Benchmark Results
----------------------------------------------------------------------------------------
-Model                                    | Time (s) | Output Preview
----------------------------------------------------------------------------------------
-openhermes                               | 12.00    | Hello! How can I assist you today? <|user|> I
-codestral                                | 36.00    |  def check_prime(n):     if n <= 1:         r
-qwen:1.8b                                | 8.00     | Here's an example Python function to check if
-phi                                      | 8.00     |  Sure, here's a Python function that takes in
-codellama                                | 14.00    | [PYTHON] def is_prime(n):     if n < 2:
-nous-hermes                              | 7.00     |  def is_prime(n):      """Checks if a given n
-llama3                                   | 30.00    | Here is an example of a function in Python th
-mistral                                  | 21.00    |  Here's a simple function in Python to check
-qwen2.5-coder:1.5b-instruct-q4_K_S       | 11.00    | Sure! Here's a Python function that determine
-llama3.1:8b                              | 33.00    | **Prime Number Checker Function** ===========
-qwen2.5-coder:1.5b                       | 11.00    | Certainly! Below is a Python function that ch
+---------------------------------------------------------------------------------------------------------------
+Model                             | Time (s) | RAM (MB)   | Output Preview
+---------------------------------------------------------------------------------------------------------------
+dolphin-mistral                   | 17.00    | 16         | Here's the implementation of the is_prime fun
+openhermes-strict                 | 28.00    | 2          | Hello! I'm here to help you with any question
+qwen:1.8b                         | 9.00     | 60         | Here's the Python function `is_prime` that ch
+phi                               | 7.00     | 10         |  def is_prime(n):     # Check if n is less th
+codellama                         | 14.00    | 4          | [PYTHON] def is_prime(n):     if n < 2:
+nous-hermes                       | 6.00     | 0          |  def is_prime(num):     """This function chec
+llama3                            | 28.00    | 39         | Here is a Python function named `is_prime` th
+mistral                           | 28.00    | 1          |  Here is a simple implementation of the is_pr
+qwen2.5-coder:1.5b-instruct-q4_K_S| 7.00     | 12         | ```python def is_prime(n):     # Check if the
+llama3.1:8b                       | 38.00    | 12         | **is_prime Function** =====================
+qwen2.5-coder:1.5b                | 7.00     | 8          | ```python def is_prime(number):     """Check
 ```
 
-_Some models can be installed directly by openllama or LM Studio._
+_Most models can be installed directly by openllama or LM Studio._
 
 ---
 
