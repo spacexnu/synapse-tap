@@ -46,6 +46,8 @@ ollama run openhermes
 ollama run mistral
 ```
 
+#### Testing openhermes and it don't look to work well for this project's purpose. Be advised.
+
 ### 3. Install Continue plugin in JetBrains IDE
 - Open **Preferences > Plugins**
 - Search for `Continue` and install it

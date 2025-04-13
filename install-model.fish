@@ -1,15 +1,14 @@
 #!/usr/bin/env fish
 
-if not pgrep -f ollama >/dev/null
-    echo "🔌 Ollama is not running. Starting it in the background..."
-    nohup ollama serve >/dev/null 2>&1 &
-    sleep 2
-else
-    echo "✅ Ollama is already running."
+set MODEL $argv[1]
+if test -z "$MODEL"
+    echo "❌ Usage: ./install-model.fish <model-name>"
+    echo "Available models: openhermes, deepseek-coder, phi, dolphin-mistral"
+    exit 1
 end
 
-set MODEL $argv[1]
-set BASE_DIR "$HOME/.ollama/models/$MODEL"
+set STRICT_NAME "$MODEL-strict"
+set BASE_DIR "$HOME/.ollama/models/$STRICT_NAME"
 mkdir -p $BASE_DIR
 cd $BASE_DIR
 
@@ -24,27 +23,23 @@ switch $MODEL
         set FILE "phi-2.Q4_K_M.gguf"
         set URL "https://huggingface.co/TheBloke/phi-2-GGUF/resolve/main/$FILE"
     case '*'
-        echo "❌ Invalid model name: $MODEL"
-        echo "Available options: openhermes, deepseek-coder, phi"
+        echo "❌ Unknown model: $MODEL"
         exit 1
 end
 
 echo "📦 Downloading model: $MODEL"
 curl -L -o $FILE $URL
 
-echo "🧱 Creating Modelfile..."
-echo "FROM $FILE" >Modelfile
-echo "" >>Modelfile
-echo 'TEMPLATE """<|system|>' >>Modelfile
-echo 'You are a helpful coding assistant.' >>Modelfile
-echo '<|user|>' >>Modelfile
-echo '{{ .prompt }}' >>Modelfile
-echo '<|assistant|>' >>Modelfile
-echo '"""' >>Modelfile
-echo "" >>Modelfile
+echo "🧱 Creating strict Modelfile..."
+echo "FROM $FILE" > Modelfile
+echo "" >> Modelfile
+echo 'TEMPLATE """<|user|>' >> Modelfile
+echo '{{ .prompt }}' >> Modelfile
+echo '<|assistant|>' >> Modelfile
+echo '"""' >> Modelfile
 
-echo "🧠 Registering model in Ollama..."
-ollama create $MODEL -f Modelfile
+echo "🧠 Registering model '$STRICT_NAME' in Ollama..."
+ollama create $STRICT_NAME -f Modelfile
 
 echo "🚀 Launching model..."
-ollama run $MODEL
+ollama run $STRICT_NAME
